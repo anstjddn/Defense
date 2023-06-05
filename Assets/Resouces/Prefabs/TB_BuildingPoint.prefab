@@ -112,3 +112,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normal: {r: 1, g: 1, b: 1, a: 1}
   OnMouse: {r: 1, g: 0, b: 0, a: 1}
+  OnPlace: {r: 0.22508526, g: 1, b: 0, a: 1}
