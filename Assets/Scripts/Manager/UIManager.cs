@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
         popUpStack = new Stack<PopUpUI>();
     }
 
-    public void ShowPopUpUI(PopUpUI popUpUI)
+    public PopUpUI ShowPopUpUI(PopUpUI popUpUI)
     {
         if (popUpStack.Count > 0)
         {
@@ -40,12 +40,15 @@ public class UIManager : MonoBehaviour
         //애드포스랑 밸로시티는 델타타입은 안적어도되는듯?
         // 애니메이터의 언스케일드타입은 실제시간
         //판업 ui는 스택으로 구현
+
+        return ui;
     }
 
-    public void ShowPopUpUI(string path)
+    public PopUpUI ShowPopUpUI(string path)
     {
         PopUpUI ui = GameManager.Resource.Load<PopUpUI>(path);
         ShowPopUpUI(ui);
+        return ui;
     }
     public void ClosePopUpUI()
     {

@@ -13,6 +13,7 @@ public class infoSceneUI : SceneUI
     {
         base.Awake();
         texts["HeartText"].text = "20";
+        texts["CoinText"].text = "100";
  
     }
 }
