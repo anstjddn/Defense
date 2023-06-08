@@ -24,14 +24,19 @@ public class TowerPlace : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+
+        BuildInGameUI buildUI = GameManager.UI.ShowInGameUi<BuildInGameUI>("UI/BuildInGame");
+        buildUI.SetTarget(transform);
+        /*if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log("좌클릭");
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             Debug.Log("우클릭");
-        }
+        }*/
+
+        buildUI.towerPlace = this;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -47,20 +52,18 @@ public class TowerPlace : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnDrag(PointerEventData eventData)
     {
         render.material.color = OnMouse;
-        transform.position += new Vector3(eventData.delta.x, 0, eventData.delta.y);
+        transform.position += new Vector3(eventData.delta.x, 0, eventData.delta.y)*0.05f;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         render.material.color = normal;
     }
-    public bool GroundCheck()
+    
+    public void BuildTower(TowerData data)
     {
-        RaycastHit hit;
-
-        return Physics.SphereCast(transform.position + Vector3.up * 1, 0.5f, Vector3.down, out hit, 0.6f);
+        GameManager.Resource.Destroy(gameObject);
+        GameManager.Resource.Instantiate(data.towers[0].tower, transform.position, transform.rotation);
     }
-
-
 }
 

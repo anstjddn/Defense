@@ -7,8 +7,12 @@ public class SettingSceneUI : SceneUI
     protected override void Awake()
     {
         base.Awake();
-        buttons["infoButton"].onClick.AddListener(() => Debug.Log("info"));
+        buttons["infoButton"].onClick.AddListener(() => OpeninfoWindowUI());
         buttons["settingButton"].onClick.AddListener(() =>  OpenPausePopUp());
+    }
+    public void OpeninfoWindowUI()
+    {
+        GameManager.UI.ShowWindowUI("UI/infoWindow");
     }
 
     public void OpenPausePopUp()

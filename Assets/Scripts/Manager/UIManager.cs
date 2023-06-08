@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,9 @@ public class UIManager : MonoBehaviour
     private EventSystem eventSystem;
 
     private Canvas popUpCanvas;
+    private Canvas windowCanavs;
 
+    private Canvas InGameCanvas;
     private Stack<PopUpUI> popUpStack;
     private void Awake()
     {
@@ -19,6 +22,16 @@ public class UIManager : MonoBehaviour
         popUpCanvas.gameObject.name = "PopUpCanvas";
         popUpCanvas.sortingOrder = 100;
         popUpStack = new Stack<PopUpUI>();
+
+        windowCanavs = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        windowCanavs.gameObject.name = "WindowCanavs";
+        windowCanavs.sortingOrder = 10;
+
+        //gameSceneCanvas.soringorder =1;
+
+        InGameCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        InGameCanvas.gameObject.name = "InGameCanvas";
+        InGameCanvas.sortingOrder = 0;
     }
 
     public PopUpUI ShowPopUpUI(PopUpUI popUpUI)
@@ -64,5 +77,45 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+    public void ShowWindowUI(windowUI windowui)
+    {
+        windowUI ui = GameManager.Pool.GetUI(windowui);
+        ui.transform.SetParent(windowCanavs.transform, false);
+    }
+    public void ShowWindowUI(string path)
+    {
+        windowUI ui = GameManager.Resource.Load<windowUI>(path);
+        ShowWindowUI(ui);
+    }
+    public void CloseWindowUI(windowUI windowui)
+    {
+        GameManager.Pool.ReleaseUI(windowui.gameObject);
+    }
+    public void SelectWindowUI(windowUI windowui)
+    {
+        windowui.transform.SetAsLastSibling();
+        // canvas는 계층구조에서 가장 마지막에 있는게 가장 위에 표시된다.
+        // 유니티말고 다른엔진은 windowUI는 리스트로 구현한다.
+        // list에서 삭제하고 맨뒤에 추가하여 sortingoder로 하거나 연결형리스트 사용한다.
+    }
+
+    public T ShowInGameUi<T>(T ingameUI) where T : InGameUI
+    {
+        T ui = GameManager.Pool.GetUI(ingameUI);
+        ui.transform.SetParent(InGameCanvas.transform.transform, false);
+
+        return ui;
+    }
+    public T ShowInGameUi<T>(string path) where T : InGameUI
+    {
+        T ui = GameManager.Resource.Load<T>(path);
+        return ShowInGameUi(ui);
+    
+    }
+
+    public void CloseInGameUi<T>(T ingameUI) where T : InGameUI
+    {
+        GameManager.Pool.ReleaseUI(ingameUI.gameObject);
     }
 }
