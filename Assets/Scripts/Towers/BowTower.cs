@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BowTower : Tower
 {
@@ -8,4 +9,5 @@ public class BowTower : Tower
     {
         data = GameManager.Resource.Load<TowerData>("Data/BowTowerData");
     }
+    
 }

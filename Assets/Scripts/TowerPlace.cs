@@ -13,6 +13,8 @@ public class TowerPlace : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     [SerializeField] Color normal;
     [SerializeField] Color OnMouse;
     [SerializeField] Color OnPlace;
+    
+    
 
     private Renderer render;
     private Transform prepoint;
