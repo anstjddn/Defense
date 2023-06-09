@@ -10,6 +10,7 @@ public class TowerData : ScriptableObject
 {
    [SerializeField] public Towerinfo[] towers;
 
+    public Towerinfo[] Towers { get { return towers; } }
 
     [Serializable]
     public class Towerinfo

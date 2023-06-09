@@ -15,11 +15,11 @@ MonoBehaviour:
   towers:
   - tower: {fileID: -3543121406896789899, guid: 017d50014b55aa04e947be3f7b76160e, type: 3}
     damage: 1
-    range: 10
+    range: 30
     delay: 2
-    buildTime: 30
-    buildCost: 30
-    sellcost: 30
+    buildTime: 10
+    buildCost: 10
+    sellcost: 10
   - tower: {fileID: 0}
     damage: 0
     range: 0
